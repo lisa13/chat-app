@@ -55,10 +55,10 @@ const removeUser = (id) => {
 
 //getUser 
 const getUser = (id) => {
-    const userN = users.find((user) => user.id === id);
-    if (!userN) {
-        return console.log('user not found')
-    }
+    return users.find((user) => user.id === id);
+    // if (!userN) {
+    //     return console.log('user not found')
+    // }
     console.log(userN.username);
 }
 
