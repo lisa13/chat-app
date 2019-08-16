@@ -28,17 +28,17 @@ const addUser = ({ id, username, room }) => {
     return { user };
 }
 
-addUser({
-    id: 22,
-    username: 'Lisa',
-    room: 'test'
-})
+// addUser({
+//     id: 22,
+//     username: 'Lisa',
+//     room: 'test'
+// })
 
-addUser({
-    id: 44,
-    username: 'mike',
-    room: 'test'
-})
+// addUser({
+//     id: 44,
+//     username: 'mike',
+//     room: 'test'
+// })
 
 
 
@@ -61,7 +61,6 @@ const getUser = (id) => {
     }
     console.log(userN.username);
 }
-
 
 
 //getUsersInRoom 

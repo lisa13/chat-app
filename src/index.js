@@ -4,6 +4,8 @@ const path = require("path");
 const socketio = require("socket.io");
 const Filter = require('bad-words');
 const { generateMessage, locationMessage } = require('./utils/messages');
+const { addUser, removeUser, getUser, getUsersInRoom } = require('./utils/users')
+
 
 const app = express();
 const server = http.createServer(app);
@@ -19,11 +21,16 @@ io.on('connection', (socket) => {
     //io.to.emit- emitsn an event to everyone in a specific room
     //socket.broacats.to.emit- sends an event to everyone limiting to a specific chatroom
 
-    socket.on('join', ({ username, room }) => {
-        socket.join(room);
+    socket.on('join', (options, callback) => {
+        const { error, user } = addUser({ id: socket.id, ...options })
+
+        if (error) {
+            return callback(error)
+        }
+        socket.join(user.room);
 
         socket.emit('message', generateMessage('Welcome'));
-        socket.broadcast.to(room).emit('message', generateMessage(`${username} has joined!`));
+        socket.broadcast.to(user.room).emit('message', generateMessage(`${user.username} has joined!`));
     });
 
     socket.on('sendMessage', (message, callback) => {
@@ -41,7 +48,10 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        io.emit('message', generateMessage('A user just left'));
+        const user = removeUser(socket.id);
+        if (user) {
+            io.to(user.room).emit('message', generateMessage(`'${user.username} has left'`));
+        }
     });
 });
 
