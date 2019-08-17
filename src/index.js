@@ -11,7 +11,7 @@ const { addUser, removeUser, getUser, getUsersInRoom } = require('./utils/users'
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 const publicDirectory = path.join(__dirname, '../public/');
 
 app.listen(port);
@@ -72,6 +72,6 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(PORT, () => {
+server.listen(port, "0,0,0,0", () => {
     console.log(`servers up on port ${port}`);
 });
