@@ -2,4 +2,6 @@
 chat app based on node.js and socket.io
 clone the application
 npm i
-node index.js
+npm run dev to run locally
+
+this is live link: https://lu-chat-app.herokuapp.com/
